@@ -5,7 +5,7 @@ import asyncio
 import json
 import os
 
-TOKEN = ("") # Ваш токен
+TOKEN = (" ") #Your token here
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -14,7 +14,7 @@ bot = commands.Bot(command_prefix='.', intents=intents)
 
 DATA_FILE = "user_data.json"
 
-# Функции для работы с файлом JSON
+# Function to load user data from the JSON file
 def load_user_data():
     """Загружает данные пользователей из файла."""
     if os.path.exists(DATA_FILE):
@@ -33,10 +33,10 @@ def reset_mining_status():
         user_data[user_id]["mining"] = False
     save_user_data()
 
-# Загрузка данных при запуске
+# Function to get the user's data
 user_data = load_user_data()
 
-# Сброс статуса майнинга при запуске
+# Function to reset mining status
 reset_mining_status()
 
 videocards = {
@@ -119,7 +119,7 @@ async def buy(ctx, videocard_name):
 @bot.command(name="exchange")
 async def sell(ctx, amount: int):
     user = get_user_data(ctx.author.id)
-    exchange_rate = 15
+    exchange_rate = random.randint(5, 20)
     if amount <= 0:
         await send_dm(ctx, "**❌ Вы не можете продать отрицательное количество коинов!**")
         return
@@ -140,4 +140,3 @@ async def shop(ctx):
     await send_dm(ctx, "**🛒 Магазин видеокарт:**\n**1. GTX1080 - 50$ — Фарм 1 - 2 коинов.**\n**2. GTX1650 - 300$ — Фарм 1 - 3 коинов.**\n**3. RTX2060 - 500$ — фарм 1 - 5 коинов.**\n**4. RTX3060 - 1000$ — фарм 1 - 8 коинов.**\n \n**Чтобы купить видеокарту, используйте команду `.buy <название видеокарты>`.**")
 
 bot.run(TOKEN)
-  
